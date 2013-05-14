@@ -1,0 +1,62 @@
+== AUTHORITATIVE CONTACT LIST
+
+* Platform Team - platform@modcloth.com
+
+== VENDOR CONTACT LIST
+
+* Joyent - support@joyent.com
+
+== SERVICE COMPONENTS
+
+* backup.rb - sets up a crontab entry to run the backup script
+* reset-root-password.rb - sets the root localhost password for the Percona service to a blank password
+* timezones.rb - builds the necessary tables needed by the BI team to do timezone conversions within the databases
+* default.rb - resets the root localhost password, sets up the timezone tables, installs backup and restore scripts, and sets up a default config file
+
+== PLATFORM CHOICE
+
+* SmartOS Percona Appliance 1.6.0
+
+== DEPENDENCIES
+
+* 8GB of RAM
+
+== START & STOP METHODS
+
+Run these commands as 'root'.  Service is controlled via SmartOS SMF.
+
+* *Start*: svcadm enable percona
+* *Stop*: svcadm disable percona
+
+== LOGGING DIRECTORIES
+
+* /var/log/mysql/bin.*
+
+These logs roll/rotate on their own with the [:percona][:tunable][:expire_log_days] attribute defining how many days to retain.
+
+* /var/log/mysql/relay.*
+
+These logs roll/rotate on their own when the slave process is done using them.
+
+== BACKUP PROCEDURES
+
+* To run manually - run the /opt/scripts/percona_backup.sh script (code is commented on each function in the script)
+
+* To run automatically - apply the 'backup' recipe in this cookbook to activate backups.
+
+* Backups older than [:percona][:backup][:retention_period] will be deleted every time the backup script is run.
+
+* Backups will be stored here: /net/filer/export/ModCloth/shared02/backups/percona/{hostname}
+
+== RESTORE PROCEDURES
+
+* To run manually - run the /opt/scripts/percona_restore.sh script (code is commented on each function in the script), specifying the backup you wish to restore via the command line.
+
+== SETTING UP A SLAVE
+
+* Using the restore procedures, perform a restore using the latest backup on the Db you wish to replicate.
+
+* After the restore completes, use the replication user and password, along with the binlog file and position stored in /databases/xtrabackup_slave_info to setup replication to the existing master in the replication chain (for setting up a star topography in the replication landscape)
+
+* You can use the binlog and position stored in /databases/xtrabackup_binlog_info to setup replication to the existing slave in the replication slave (for extending the chain)
+

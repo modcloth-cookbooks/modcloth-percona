@@ -1,0 +1,43 @@
+#!/bin/bash
+
+# Check for lock file
+if [ -f /tmp/db-backup_lock ]; then
+  exit 0
+fi
+
+# Creating lock file
+touch /tmp/db-backup_lock
+
+# Define path to binaries used by this script
+PATH="/mysql/bin:/mysql/libexec:/opt/local/bin:/opt/local/sbin:/usr/bin:/usr/sbin"
+
+# Use autofs to mount share point to store backups
+BACKUP_DIR="/net/filer.<%= node[:domain] %>/export/ModCloth/shared02/backups/percona"
+
+# Define date and hostname variables
+DATE=`date +%Y%m%d%H%M`
+HOSTNAME=`hostname`
+
+# Make the backup destination dir if it doesn't exist
+if [ ! -d ${BACKUP_DIR}/${HOSTNAME} ]; then
+        mkdir -p ${BACKUP_DIR}/${HOSTNAME}
+fi
+
+# Disabling slave process
+echo "STOP SLAVE;" | mysql
+
+# Run innobackupex (the xtrabackup wrapper script), saving backup as a tar stream
+/opt/local/bin/innobackupex --slave-info --ibbackup=xtrabackup --stream=tar /tmp | gzip -c > ${BACKUP_DIR}/${HOSTNAME}/${DATE}.gz
+
+# Enabling slave process
+echo "START SLAVE;" | mysql
+
+# Remove old backups as defined by retention period attribute
+find ${BACKUP_DIR}/${HOSTNAME} -mtime +<%= node[:percona][:backup][:retention_period] %> -exec rm -rf {} \;
+
+# Update LATEST_BACKUP file with timestamp of the latest backup
+echo "${DATE}" > ${BACKUP_DIR}/${HOSTNAME}/LATEST_BACKUP
+
+# Removing lock file
+rm /tmp/db-backup_lock
+
