@@ -22,7 +22,7 @@ touch /tmp/db-restore_lock
 
 # Function to disable the Percona service
 function disable_percona {
-  echo "-- Disabling Percona service"
+  echo "-- Disabling Percona service" `date`
   svcadm disable percona-server
   PERCONA_STATE=`svcs -a | grep percona-server | cut -d" " -f 1`
   while [ "${PERCONA_STATE}" != "disabled" ]; do 
@@ -35,7 +35,7 @@ function disable_percona {
 
 # Function to enable the Percona service
 function enable_percona {
-  echo "-- Enabling the Percona service"
+  echo "-- Enabling the Percona service" `date`
   svcadm enable percona-server
   PERCONA_STATE=`svcs -a | grep percona-server | cut -d" " -f 1`
   while [ "${PERCONA_STATE}" != "online" ]; do 
@@ -48,23 +48,23 @@ function enable_percona {
 
 # Function to remove existing database files
 function remove_old_db {
-  echo "-- Removing existing database files"
+  echo "-- Removing existing database files" `date`
   cd /databases
   rm -rf *
 }
 
 # Function to extract backup source, important thing to note is the -i switch on the tar command... it is used to ignore zeros put there during the stream process during the backup
 function extract_new_db {
-  echo "-- Extracting Db backup"
+  echo "-- Extracting Db backup" `date`
   cd /databases
   tar -xzif ${SOURCE}
 }
 
 # Function to use innobackup to prepare extracted backup, applying any logged changes that may have happened during the backup process.  This function also updates the permissions of the database files to mysql:mysql.
 function prepare_new_db {
-  echo "-- Preparing Db backup"
+  echo "-- Preparing Db backup" `date`
   /opt/local/bin/innobackupex --apply-log --use-memory=2G --ibbackup=/opt/local/bin/xtrabackup /databases > /dev/null 2>&1
-  echo "-- Changing permissions"
+  echo "-- Changing permissions" `date`
   chown -R mysql:mysql /var/mysql
 }
 
