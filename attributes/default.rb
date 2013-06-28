@@ -60,4 +60,4 @@ default[:percona][:tunable][:replicate_ignore_table]             = ' '
 
 # Backup attributes
 default[:percona][:backup][:retention_period]                    = '7'
-
+default[:percona][:backup][:supports_persistence]                = false

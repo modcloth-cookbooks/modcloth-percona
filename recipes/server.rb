@@ -38,8 +38,8 @@ link '/databases' do
   to '/var/mysql'
 end
 
-cookbook_file '/tmp/percona_restore.sh' do
-  source 'percona_restore.sh'
+template '/tmp/percona_restore.sh' do
+  source 'percona_restore.sh.erb'
   mode '0755'
 end
 

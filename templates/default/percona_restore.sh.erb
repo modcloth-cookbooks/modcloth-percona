@@ -68,11 +68,28 @@ function prepare_new_db {
   chown -R mysql:mysql /var/mysql
 }
 
+function relink_persistent_db {
+  if [ -d "/persisted_dbs" ]; then
+    echo "-- Relinking persistent databases"
+
+    for i in `ls -1 /persisted_dbs`; do
+      echo "-- Relinking $i database"
+      rm -rf /databases/$i
+      ln -s -t /databases /persisted_dbs/$i
+    done
+  else
+    echo "-- No persistent databases to link"
+  fi
+}
+
 # Run each of the functions in the proper order: disable, remove, extract, prepare, enable
 disable_percona
 remove_old_db
 extract_new_db
 prepare_new_db
+<% if node[:percona][:backup][:supports_persistence] -%>
+relink_persistent_db
+<% end -%>
 enable_percona
 
 # Removing lock file
