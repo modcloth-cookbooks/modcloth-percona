@@ -57,7 +57,6 @@ default[:percona][:tunable][:table_definition_cache]             = '1024'
 default[:percona][:tunable][:replicate_wild_do_table]            = ' '
 default[:percona][:tunable][:replicate_ignore_table]             = ' '
 default[:percona][:tunable][:userstat]                           = 'OFF'
-default[:percona][:tunable][:innodb_flush_method]                = ' '
 default[:percona][:tunable][:innodb_flush_log_at_trx_commit]     = '1'
 default[:percona][:tunable][:sync_binlog]                        = '0' 
 

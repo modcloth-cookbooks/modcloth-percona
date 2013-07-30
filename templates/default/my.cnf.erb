@@ -37,14 +37,13 @@ innodb_buffer_pool_instances = <%= node[:percona][:tunable][:innodb_buffer_pool_
 innodb_log_file_size = 400M
 innodb_additional_mem_pool_size = 20M
 innodb_log_buffer_size = 8M
-innodb_flush_log_at_trx_commit = <%= node[:percona][:tunable][:nnodb_flush_log_at_trx_commit] %>
+innodb_flush_log_at_trx_commit = <%= node[:percona][:tunable][:innodb_flush_log_at_trx_commit] %>
 innodb_lock_wait_timeout = <%= node[:percona][:tunable][:innodb_lock_wait_timeout] %>
 innodb_file_per_table
 innodb_doublewrite = 0
 innodb_io_capacity = <%= node[:percona][:tunable][:innodb_io_capacity] %>
 innodb_read_io_threads = <%= node[:percona][:tunable][:innodb_read_io_threads] %>
 innodb_write_io_threads = <%= node[:percona][:tunable][:innodb_write_io_threads] %>
-innodb_flush_method = <%= node[:percona][:tunable][:innodb_flush_method] %>
 
 # All other settings
 table_cache = <%= node[:percona][:tunable][:table_cache] %>
