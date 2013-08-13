@@ -15,7 +15,7 @@
 
 == PLATFORM CHOICE
 
-* SmartOS Percona Appliance 1.6.0
+* SmartOS 1.9.1
 
 == DEPENDENCIES
 
@@ -27,6 +27,7 @@ Run these commands as 'root'.  Service is controlled via SmartOS SMF.
 
 * *Start*: svcadm enable percona
 * *Stop*: svcadm disable percona
+* *Restart*: svcadm restart percona
 
 == LOGGING DIRECTORIES
 
@@ -38,9 +39,13 @@ These logs roll/rotate on their own with the [:percona][:tunable][:expire_log_da
 
 These logs roll/rotate on their own when the slave process is done using them.
 
+* /var/log/mysql/error.log
+
+Standard error log.
+
 == BACKUP PROCEDURES
 
-* To run manually - run the /opt/scripts/percona_backup.sh script (code is commented on each function in the script)
+* To run manually - run the /tmp/percona_backup.sh script (code is commented on each function in the script)
 
 * To run automatically - apply the 'backup' recipe in this cookbook to activate backups.
 
@@ -50,7 +55,7 @@ These logs roll/rotate on their own when the slave process is done using them.
 
 == RESTORE PROCEDURES
 
-* To run manually - run the /opt/scripts/percona_restore.sh script (code is commented on each function in the script), specifying the backup you wish to restore via the command line.
+* To run manually - run the /tmp/percona_restore.sh script (code is commented on each function in the script), specifying the backup you wish to restore via the command line.
 
 == SETTING UP A SLAVE
 
