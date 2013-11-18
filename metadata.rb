@@ -1,5 +1,6 @@
-maintainer       "ModCloth, Inc."
-maintainer_email "platformsphere@modcloth.com"
-license          "All Rights Reserved"
-description      "Configures Percona client and server"
-version          "0.1.1"
+name             'percona'
+maintainer       'ModCloth, Inc.'
+maintainer_email 'platformsphere@modcloth.com'
+license          'All Rights Reserved'
+description      'Configures Percona client and server'
+version          '0.1.2'
