@@ -62,4 +62,4 @@ default[:percona][:tunable][:sync_binlog]                        = '0'
 
 # Backup attributes
 default[:percona][:backup][:retention_period]                    = '7'
-
+default[:percona][:backup][:crontab_schedule]                    = %w(0 8 * * *)
