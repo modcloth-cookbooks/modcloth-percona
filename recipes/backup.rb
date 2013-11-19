@@ -9,8 +9,13 @@
 
 # Setup regularly scheduled backups (occuring at midnight PDT), and logging output to a temporary file
 
+schedule = node[:percona][:backup][:crontab_schedule]
+
 cron 'Percona Innobackup' do
-  hour '8'
-  minute '0'
+  minute schedule[0]
+  hour schedule[1]
+  day schedule[2]
+  month schedule[3]
+  weekday schedule[4]
   command '/tmp/percona_backup.sh 2>&1 > /tmp/db_backup.log'
 end
