@@ -7,6 +7,6 @@
 # All rights reserved - Do Not Redistribute
 #
 
-package "percona-client-" + "#{node[:percona][:version]}" do
+package "mysql-client-" + "#{node[:percona][:version]}" do
  action :install
 end
