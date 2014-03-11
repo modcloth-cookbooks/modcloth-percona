@@ -9,15 +9,15 @@
 
 include_recipe 'percona::client'
 
-package 'percona-server' do
+package "percona-server-" + "#{node[:percona][:version]}"  do
  action :install
 end
 
-package 'percona-toolkit' do
+package "percona-toolkit-" + "#{node[:percona][:version]}" do
   action :install
 end
 
-package 'percona-xtrabackup' do
+package "percona-xtrabackup-" + "#{node[:percona][:version]}" do
   action :install
 end
 
@@ -38,26 +38,26 @@ link '/databases' do
   to '/var/mysql'
 end
 
-cookbook_file '/tmp/percona_restore.sh' do
+cookbook_file '/opt/local/bin/percona_restore.sh' do
   source 'percona_restore.sh'
   mode '0755'
 end
 
-template '/tmp/percona_backup.sh' do
+template '/opt/local/bin/percona_backup.sh' do
   source 'percona_backup.sh.erb'
   mode '0755'
 end
 
 # This stuff resets the root password if needed
 
-cookbook_file '/tmp/percona-reset-root-password.sh' do
+cookbook_file '/opt/local/bin/percona-reset-root-password.sh' do
   source 'reset-root-password.sh'
   mode 0700
 end
 
 bash 'set blank root password for mysql' do
   user 'root'
-  code '/tmp/percona-reset-root-password.sh'
+  code '/opt/local/bin/percona-reset-root-password.sh'
   not_if { ::File.exists?('/root/.my.cnf') }
 end
 
