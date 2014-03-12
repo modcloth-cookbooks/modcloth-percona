@@ -12,7 +12,7 @@ touch /tmp/db-backup_lock
 PATH="/mysql/bin:/mysql/libexec:/opt/local/bin:/opt/local/sbin:/usr/bin:/usr/sbin"
 
 # Use autofs to mount share point to store backups
-BACKUP_DIR="/net/192.168.38.253/vol/joyaa436bac_2fb1_4f20_8647_39ee241c2a72_shared02/backups/percona"
+BACKUP_DIR="<%= node[:percona][:backup][:directory] %>"
 
 # Define date and hostname variables
 DATE=`date +%Y%m%d%H%M`

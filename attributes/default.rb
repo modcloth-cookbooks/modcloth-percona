@@ -64,3 +64,4 @@ default[:percona][:tunable][:sync_binlog]                        = '0'
 # Backup attributes
 default[:percona][:backup][:retention_period]                    = '7'
 default[:percona][:backup][:crontab_schedule]                    = %w(0 8 * * *)
+default[:percona][:backup][:directory]  			 = '/net/192.168.38.253/vol/joyaa436bac_2fb1_4f20_8647_39ee241c2a72_shared02/backups/percona'
