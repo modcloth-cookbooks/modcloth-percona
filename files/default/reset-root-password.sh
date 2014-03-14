@@ -11,7 +11,7 @@ echo "-- Killing existing Percona process"
 kill `ps aux | grep /opt/local/sbin/mysqld | awk '{print $2}'`
 
 echo "-- Disabling Percona"
-svcadm disable -s percona-server
+svcadm disable -s percona
 
 echo "-- Starting Percona without grant tables"
 /opt/local/sbin/mysqld --skip-grant-tables --user=mysql --basedir=/opt/local --datadir=/var/mysql &
@@ -30,7 +30,7 @@ while [  "$PID" != "" ];do
 done
 
 echo "-- Enabling Percona"
-svcadm enable -s percona-server
+svcadm enable -s percona
 
 echo "-- Creating /root/.my.cnf file"
 touch /root/.my.cnf
