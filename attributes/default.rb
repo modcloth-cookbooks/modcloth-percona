@@ -11,7 +11,7 @@
 default[:percona][:bind_address]                                 = '127.0.0.1'
 default[:percona][:server_id]                                    = `ifconfig -a | grep 192 | awk '{print $2}' | awk -F"." '{print $3$4}'`.strip.to_i
 default[:percona][:replica_specific]                             = 'no'
-default[:percona][:version] 					 = '5.5'
+default[:percona][:version] 					 = '5.6'
 
 # Tunable attributes
 default[:percona][:tunable][:max_connections]                    = '1500'
