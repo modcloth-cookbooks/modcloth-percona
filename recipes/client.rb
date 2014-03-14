@@ -7,6 +7,8 @@
 # All rights reserved - Do Not Redistribute
 #
 
-package "mysql-client-" + "#{node[:percona][:version]}" do
- action :install
+# force install, because joyent can't manage a distro to save their lives
+execute "install percona-client" do
+   command "pkgin -y in percona-client-"+"#{node[:percona][:version]}"
+   returns [0,1]
 end
