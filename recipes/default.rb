@@ -7,5 +7,5 @@
 # All rights reserved - Do Not Redistribute
 #
 
-include_recipe 'percona::client'
+include_recipe 'modcloth-percona::client'
 
