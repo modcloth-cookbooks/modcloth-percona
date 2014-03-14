@@ -7,18 +7,25 @@
 # All rights reserved - Do Not Redistribute
 #
 
-include_recipe 'percona::client'
-
-package "percona-server-" + "#{node[:percona][:version]}"  do
- action :install
+execute "install percona-server" do
+   command "pkgin -y in percona-server-"+"#{node[:percona][:version]}" 
+   returns [0,1]
 end
 
-package "percona-toolkit-" + "#{node[:percona][:version]}" do
-  action :install
+package "percona-toolkit" do
+   action :install
 end
 
-package "percona-xtrabackup-" + "#{node[:percona][:version]}" do
-  action :install
+execute "install xtrabackup" do
+   command "pkgin -y in percona56-xtrabackup"
+   only_if { node[:percona][:version] == '5.6' }
+   returns [0,1]
+end
+
+execute "percona55-xtrabackup" do
+   command "pkgin -y in percona55-xtrabackup"
+   only_if { node[:percona][:version] == '5.5' }
+   returns [0,1]
 end
 
 template '/opt/local/etc/my.cnf' do
