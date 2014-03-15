@@ -8,8 +8,8 @@
 
 == PROVISIONING
 
-<code>sdc-createmachine --package g3-standard-30-smartos --dataset sdc:sdc:base64:13.4.0 --name test-db.stage.modcloth.com --network 19013e93-a972-429c-9751-f1aaef122b05</code></p>
-<code>knife bootstrap <serverip> --no-host-key-verify --node-name test-db.stage.modcloth.com -E platform_v0_1_2 --distro smartos -r "role[smartos], recipe[modcloth-percona::server]"</code></p>
+<code>sdc-createmachine --package g3-standard-30-smartos --dataset sdc:sdc:base64:13.4.0 --name test-db.stage.modcloth.com --network 19013e93-a972-429c-9751-f1aaef122b05</code>
+<code>knife bootstrap <serverip> --no-host-key-verify --node-name test-db.stage.modcloth.com -E platform_v0_1_2 --distro smartos -r "role[smartos], recipe[modcloth-percona::server]"</code>
 
 == SERVICE COMPONENTS
 
