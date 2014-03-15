@@ -1,10 +1,15 @@
 == AUTHORITATIVE CONTACT LIST
 
-* Platform Team - platform@modcloth.com
+* Platform Team - platformsphere@modcloth.com
 
 == VENDOR CONTACT LIST
 
 * Joyent - support@joyent.com
+
+== PROVISIONING
+
+sdc-createmachine --package g3-standard-30-smartos --dataset sdc:sdc:base64:13.4.0 --name test-db.stage.modcloth.com --network 19013e93-a972-429c-9751-f1aaef122b05
+knife bootstrap <serverip> --no-host-key-verify --node-name test-db.stage.modcloth.com -E platform_v0_1_2 --distro smartos -r "role[smartos], recipe[modcloth-percona::server]"
 
 == SERVICE COMPONENTS
 
@@ -45,7 +50,7 @@ Standard error log.
 
 == BACKUP PROCEDURES
 
-* To run manually - run the /tmp/percona_backup.sh script (code is commented on each function in the script)
+* To run manually - run the /opt/local/bin/percona_backup.sh script (code is commented on each function in the script)
 
 * To run automatically - apply the 'backup' recipe in this cookbook to activate backups.
 
@@ -55,7 +60,7 @@ Standard error log.
 
 == RESTORE PROCEDURES
 
-* To run manually - run the /tmp/percona_restore.sh script (code is commented on each function in the script), specifying the backup you wish to restore via the command line.
+* To run manually - run the /opt/local/bin/percona_restore.sh script (code is commented on each function in the script), specifying the backup you wish to restore via the command line.
 
 == SETTING UP A SLAVE
 
