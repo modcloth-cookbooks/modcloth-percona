@@ -8,9 +8,10 @@
 #
 
 # General attributes
-default[:percona][:bind_address]                                 = '127.0.0.1'
+default[:percona][:bind_address]                                 = '0.0.0.0'
 default[:percona][:server_id]                                    = `ifconfig -a | grep 192 | awk '{print $2}' | awk -F"." '{print $3$4}'`.strip.to_i
 default[:percona][:replica_specific]                             = 'no'
+default[:percona][:version] 					 = '5.6'
 
 # Tunable attributes
 default[:percona][:tunable][:max_connections]                    = '1500'
@@ -63,3 +64,4 @@ default[:percona][:tunable][:sync_binlog]                        = '0'
 # Backup attributes
 default[:percona][:backup][:retention_period]                    = '7'
 default[:percona][:backup][:crontab_schedule]                    = %w(0 8 * * *)
+default[:percona][:backup][:directory]  			 = '/net/192.168.38.253/vol/joyaa436bac_2fb1_4f20_8647_39ee241c2a72_shared02/backups/percona'

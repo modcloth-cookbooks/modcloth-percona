@@ -46,8 +46,21 @@ innodb_read_io_threads = <%= node[:percona][:tunable][:innodb_read_io_threads] %
 innodb_write_io_threads = <%= node[:percona][:tunable][:innodb_write_io_threads] %>
 
 # All other settings
+
+<% if node[:percona][:version] == '5.5' %>
 table_cache = <%= node[:percona][:tunable][:table_cache] %>
 table_open_cache = <%= node[:percona][:tunable][:table_open_cache] %>
+<% end %>
+
+<% if node[:percona][:version] == '5.6' %>
+# use current (5.5) innodb checksum
+innodb_checksum_algorithm=INNODB
+# use current (5.5) binlog checksum
+binlog_checksum=NONE
+# maintain existing timestamp behavior
+explicit_defaults_for_timestamp=FALSE 
+<% end %>
+
 table_definition_cache = <%= node[:percona][:tunable][:table_definition_cache] %>
 thread_cache_size = 250
 
@@ -94,7 +107,7 @@ relay-log = /var/log/mysql/relay.log
 expire_logs_days = <%= node[:percona][:tunable][:expire_log_days]%>
 binlog_format = "<%= node[:percona][:tunable][:binlog_format]%>"
 
-<% if node[:percona][:replica_specific].eql?("yes") %>
+<% if node[:percona][:replica_specific] == "yes" %>
 replicate-wild-do-table = <%= node[:percona][:tunable][:replicate_wild_do_table] %>
 replicate-ignore-table = <%= node[:percona][:tunable][:replicate_ignore_table] %>
 <% end %>
@@ -103,5 +116,6 @@ replicate-ignore-table = <%= node[:percona][:tunable][:replicate_ignore_table] %
 max_allowed_packet = <%= node[:percona][:tunable][:max_allowed_packet] %>
 
 [mysql]
+<% if node[:percona][:version] == '5.5' %>
 no-auto-rehash
-
+<% end %>

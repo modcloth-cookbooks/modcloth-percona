@@ -23,12 +23,12 @@ touch /tmp/db-restore_lock
 # Function to disable the Percona service
 function disable_percona {
   echo "-- Disabling Percona service" `date`
-  svcadm disable percona-server
-  PERCONA_STATE=`svcs -a | grep percona-server | cut -d" " -f 1`
+  svcadm disable percona
+  PERCONA_STATE=`svcs -a | grep percona | cut -d" " -f 1`
   while [ "${PERCONA_STATE}" != "disabled" ]; do 
     echo -n "."
     sleep 1
-    PERCONA_STATE=`svcs -a | grep percona-server | cut -d" " -f 1`
+    PERCONA_STATE=`svcs -a | grep percona | cut -d" " -f 1`
   done
   echo "done"
 }
@@ -36,12 +36,12 @@ function disable_percona {
 # Function to enable the Percona service
 function enable_percona {
   echo "-- Enabling the Percona service" `date`
-  svcadm enable percona-server
-  PERCONA_STATE=`svcs -a | grep percona-server | cut -d" " -f 1`
+  svcadm enable percona
+  PERCONA_STATE=`svcs -a | grep percona | cut -d" " -f 1`
   while [ "${PERCONA_STATE}" != "online" ]; do 
     echo -n "."
     sleep 1
-    PERCONA_STATE=`svcs -a | grep percona-server | cut -d" " -f 1`
+    PERCONA_STATE=`svcs -a | grep percona | cut -d" " -f 1`
   done
   echo "done"
 }

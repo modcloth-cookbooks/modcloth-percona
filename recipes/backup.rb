@@ -17,5 +17,5 @@ cron 'Percona Innobackup' do
   day schedule[2]
   month schedule[3]
   weekday schedule[4]
-  command '/tmp/percona_backup.sh 2>&1 > /tmp/db_backup.log'
+  command '/opt/local/bin/percona_backup.sh 2>&1 > /tmp/db_backup.log'
 end
